@@ -1,7 +1,0 @@
-﻿@viewModel Web.ViewModels.DefaultViewModel, Web
-@masterPage Views/MasterPage.dotmaster
-<dot:Content ContentPlaceHolderID="MainContent">
-	<h1>{{ value: Title }}</h1>
-	<p>{{ value: FirstName }} {{ value: LastName}}</p>
-	<dot:Button Click="{command: SetName()}" Text="Set name" />
-</dot:Content>

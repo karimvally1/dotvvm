@@ -1,0 +1,9 @@
+﻿@viewModel Web.ViewModels.RegisterViewModel, Web
+@masterPage Views/MasterPage.dotmaster
+
+<dot:Content ContentPlaceHolderID="MainContent">
+    <h1>{{ value: Title }}</h1>
+    <p DataContext="{value: User}">{{ value: FirstName }} {{ value: LastName}}</p>
+    <dot:Button Click="{command: Create()}" Text="Create" />
+</dot:Content>
+

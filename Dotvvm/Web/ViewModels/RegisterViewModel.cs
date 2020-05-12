@@ -1,23 +1,19 @@
-﻿using Service.Models;
-
-namespace Web.ViewModels
+﻿namespace Web.ViewModels
 {
     public class RegisterViewModel : MasterPageViewModel
     {
-        public User User { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public RegisterViewModel()
         {
-            Title = "Register";
+            Title = "Create an account";
         }
 
         public void Create()
-        {
-            User = new User
-            {
-                FirstName = "Karim",
-                LastName = "Vally"
-            };
+        {  
+
         }
     }
 }

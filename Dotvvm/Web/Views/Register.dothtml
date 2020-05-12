@@ -3,14 +3,14 @@
 
     <dot:Content ContentPlaceHolderID="MainContent">
         <h1>{{ value: Title }}</h1>
-        <p>
+        <div>
             Firstname:
             <dot:TextBox Text="{{ value: FirstName }}" />
-        </p>
-        <p>
+        </div>
+        <div>
             Lastname:
             <dot:TextBox Text="{{ value: LastName }}" />
-        </p>
+        </div>
         <dot:Button Click="{command: Create()}" Text="Create" />
     </dot:Content>
 

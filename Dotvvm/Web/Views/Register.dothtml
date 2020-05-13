@@ -3,14 +3,18 @@
 
     <dot:Content ContentPlaceHolderID="MainContent">
         <h1>{{ value: Title }}</h1>
-        <div>
-            Firstname:
-            <dot:TextBox Text="{{ value: FirstName }}" />
-        </div>
-        <div>
-            Lastname:
-            <dot:TextBox Text="{{ value: LastName }}" />
-        </div>
-        <dot:Button Click="{command: Create()}" Text="Create" />
+        <form>
+            <div>
+                Firstname: <dot:TextBox Text="{{ value: FirstName }}" />
+            </div>
+            <div>
+                Lastname: <dot:TextBox Text="{{ value: LastName }}" />
+            </div>
+            <div>
+                Email: <dot:TextBox Text="{{ value: LastName }}" />
+            </div>
+            <dot:ValidationSummary />
+            <dot:Button Click="{command: Create()}">Create</dot:Button>
+        </form>
     </dot:Content>
 

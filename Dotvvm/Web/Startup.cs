@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using DotVVM.Framework.Routing;
-using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Data;
+using Data.Models;
 
 namespace Web
 {
@@ -24,9 +26,14 @@ namespace Web
             services.AddDataProtection();
             services.AddAuthorization();
             services.AddWebEncoders();
+
             services.AddDotVVM<DotvvmStartup>();
+
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("dotvvm")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext)
@@ -41,6 +48,8 @@ namespace Web
 
             if (env.IsDevelopment())
                 dbContext.Database.EnsureCreated();
+
+            app.UseAuthentication();
         }
     }
 }

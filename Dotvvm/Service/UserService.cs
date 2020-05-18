@@ -13,7 +13,7 @@ namespace Service
             _appUserManager = appUserManager;
         }
 
-        public async void Register(AccountRegister accountRegister)
+        public void Register(AccountRegister accountRegister)
         {
             var user = new User
             {

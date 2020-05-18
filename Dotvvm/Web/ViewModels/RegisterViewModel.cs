@@ -30,7 +30,7 @@ namespace Web.ViewModels
             _userService = userService;
         }
 
-        public async void Create()
+        public void Create()
         {
             var accountRegister = new AccountRegister
             {

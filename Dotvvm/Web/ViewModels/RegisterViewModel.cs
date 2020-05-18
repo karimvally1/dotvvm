@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Service;
+using Service.Values;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.ViewModels
 {
@@ -14,14 +16,32 @@ namespace Web.ViewModels
         [EmailAddress]
         public string Email { get; set; }
 
-        public RegisterViewModel()
+        [Required]
+        public string UserName { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        private readonly IUserService _userService;
+
+        public RegisterViewModel(IUserService userService)
         {
             Title = "Create an account";
+            _userService = userService;
         }
 
-        public void Create()
-        {  
+        public async void Create()
+        {
+            var accountRegister = new AccountRegister
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                UserName = UserName,
+                Password = Password
+            };
 
+            _userService.Register(accountRegister);
         }
     }
 }

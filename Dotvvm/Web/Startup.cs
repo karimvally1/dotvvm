@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Data;
 using Data.Models;
+using Web.Config;
 
 namespace Web
 {
@@ -29,11 +30,13 @@ namespace Web
 
             services.AddDotVVM<DotvvmStartup>();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                            .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("dotvvm")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext)

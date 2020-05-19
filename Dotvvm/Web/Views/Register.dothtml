@@ -17,7 +17,7 @@
                 Username: <dot:TextBox Text="{{ value: UserName }}" />
             </div>
             <div>
-                Password: <dot:TextBox Text="{{ value: Password }}" />
+                Password: <dot:TextBox Type="Password" Text="{{ value: Password }}" />
             </div>
             <dot:ValidationSummary />
             <dot:Button Click="{command: Create()}">Create</dot:Button>

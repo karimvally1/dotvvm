@@ -19,10 +19,15 @@ namespace Identity
             var applicationUser = new ApplicationUser
             {
                 Email = user.Email,
-                UserName = user.UserName
+                UserName = user.UserName,
+                User = new Models.User
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                }
             };
 
-            var result = await _userManager.CreateAsync(applicationUser, password);
+           var result = await _userManager.CreateAsync(applicationUser, password);
         }
     }
 }

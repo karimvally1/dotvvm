@@ -32,12 +32,16 @@ namespace Web
             services.AddDotVVM<DotvvmStartup>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                            .AddEntityFrameworkStores<IdentityDbContext>();
+                            .AddEntityFrameworkStores<IdentityDbContext>()
+                            .AddUserManager<UserManager<ApplicationUser>>()
+                            .AddDefaultTokenProviders();
 
             services.AddDbContext<IdentityDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("dotvvm")))
+                options.UseSqlServer(Configuration.GetConnectionString("dotvvm")),
+                ServiceLifetime.Transient)
                 .AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("dotvvm")));
+                options.UseSqlServer(Configuration.GetConnectionString("dotvvm")),
+                ServiceLifetime.Transient);
 
             services.AddServices();
         }

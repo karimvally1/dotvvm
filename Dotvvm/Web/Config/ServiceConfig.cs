@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Service;
-using Service.Models;
 using Service.Interfaces;
+using Service.Models;
 using Identity;
 
 namespace Web.Config

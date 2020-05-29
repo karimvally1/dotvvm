@@ -6,11 +6,11 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        private readonly IAppUserManager<User> _appUserManager;
+        private readonly IUserManager<User> _userManager;
 
-        public UserService(IAppUserManager<User> appUserManager)
+        public UserService(IUserManager<User> userManager)
         {
-            _appUserManager = appUserManager;
+            _userManager = userManager;
         }
 
         public void Register(AccountRegister accountRegister)
@@ -23,7 +23,7 @@ namespace Service
                 UserName = accountRegister.UserName
             };
 
-            _appUserManager.Create(user, accountRegister.Password);
+            _userManager.Create(user, accountRegister.Password);
         }
     }
 }

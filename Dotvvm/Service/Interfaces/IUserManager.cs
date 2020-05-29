@@ -2,7 +2,7 @@
 
 namespace Service.Interfaces
 {
-    public interface IAppUserManager<T> where T : User
+    public interface IUserManager<T> where T : User
     {
         void Create(T user, string password);
     }

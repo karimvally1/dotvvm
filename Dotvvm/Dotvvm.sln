@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{3FD34A4E-3A55-4F66-861C-5BF0C989C755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{7FA979DE-2CFD-403E-8175-BD33D0666E4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{7FA979DE-2CFD-403E-8175-BD33D0666E4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Identity\Identity.csproj", "{BD25AF87-186F-4537-A629-7970DF4DCB0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7FA979DE-2CFD-403E-8175-BD33D0666E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA979DE-2CFD-403E-8175-BD33D0666E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FA979DE-2CFD-403E-8175-BD33D0666E4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD25AF87-186F-4537-A629-7970DF4DCB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD25AF87-186F-4537-A629-7970DF4DCB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD25AF87-186F-4537-A629-7970DF4DCB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD25AF87-186F-4537-A629-7970DF4DCB0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

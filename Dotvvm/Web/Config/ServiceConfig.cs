@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Service;
 using Service.Models;
-using Repository;
 using Service.Interfaces;
+using Identity;
 
 namespace Web.Config
 {
@@ -10,7 +10,7 @@ namespace Web.Config
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddTransient<IAppUserManager<User>, AppUserManager>();
+            services.AddTransient<IUserManager<User>, UserManager>();
             services.AddTransient<IUserService, UserService>();
         }
     }

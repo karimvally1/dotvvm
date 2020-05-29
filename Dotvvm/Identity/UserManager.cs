@@ -1,15 +1,15 @@
-﻿using Data.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Identity.Models;
 using Service.Interfaces;
 using Service.Models;
 
-namespace Repository
+namespace Identity
 {
-    public class AppUserManager : IAppUserManager<User>
+    public class UserManager : IUserManager<User>
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AppUserManager(UserManager<ApplicationUser> userManager)
+        public UserManager(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }

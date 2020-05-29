@@ -8,8 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Data;
-using Data.Models;
 using Web.Config;
+using Identity;
+using Identity.Models;
 
 namespace Web
 {
@@ -31,15 +32,17 @@ namespace Web
             services.AddDotVVM<DotvvmStartup>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>();
+                            .AddEntityFrameworkStores<IdentityDbContext>();
 
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<IdentityDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("dotvvm")))
+                .AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("dotvvm")));
 
             services.AddServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, IdentityDbContext identityDbContext)
         {
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);
             dotvvmConfiguration.AssertConfigurationIsValid();
@@ -50,7 +53,10 @@ namespace Web
             });
 
             if (env.IsDevelopment())
+            {
                 dbContext.Database.EnsureCreated();
+                identityDbContext.Database.EnsureCreated();
+            }
 
             app.UseAuthentication();
         }

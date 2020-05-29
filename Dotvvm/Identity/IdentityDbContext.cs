@@ -9,5 +9,7 @@ namespace Identity
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
         : base(options)
         { }
+
+        public DbSet<User> Users { get; set; }
     }
 }

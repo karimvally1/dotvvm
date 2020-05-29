@@ -5,7 +5,7 @@ using Service.Models;
 
 namespace Identity
 {
-    public class UserManager : IUserManager<User>
+    public class UserManager : IUserManager<Service.Models.User>
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -14,12 +14,10 @@ namespace Identity
             _userManager = userManager;
         }
 
-        public async void Create(User user, string password)
+        public async void Create(Service.Models.User user, string password)
         {
             var applicationUser = new ApplicationUser
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
                 Email = user.Email,
                 UserName = user.UserName
             };

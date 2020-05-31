@@ -10,7 +10,7 @@ namespace Web.Config
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddTransient<IUserManager<User>, UserManager>();
+            services.AddTransient<IIdentityManager<User>, IdentityManager>();
             services.AddTransient<IUserService, UserService>();
         }
     }

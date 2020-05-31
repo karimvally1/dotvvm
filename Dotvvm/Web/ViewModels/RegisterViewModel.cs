@@ -30,7 +30,7 @@ namespace Web.ViewModels
             _userService = userService;
         }
 
-        public void Create()
+        public async void Create()
         {
             var accountRegister = new AccountRegister
             {
@@ -41,7 +41,7 @@ namespace Web.ViewModels
                 Password = Password
             };
 
-            _userService.Register(accountRegister);
+            var result = await _userService.Register(accountRegister);
         }
     }
 }

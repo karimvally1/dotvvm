@@ -11,6 +11,7 @@ using Data;
 using Web.Config;
 using Identity;
 using Identity.Models;
+using Common;
 
 namespace Web
 {
@@ -34,7 +35,8 @@ namespace Web
             services.AddIdentity<ApplicationUser, IdentityRole>()
                             .AddEntityFrameworkStores<IdentityDbContext>()
                             .AddUserManager<UserManager<ApplicationUser>>()
-                            .AddDefaultTokenProviders();
+                            .AddDefaultTokenProviders()
+                            .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
 
             services.AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("dotvvm")),

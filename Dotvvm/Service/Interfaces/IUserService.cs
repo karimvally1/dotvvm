@@ -1,9 +1,10 @@
 ﻿using Service.Values;
+using System.Threading.Tasks;
 
 namespace Service
 {
     public interface IUserService
     {
-        void Register(AccountRegister accountRegister);
+        Task<IdentityResult> Register(AccountRegister accountRegister);
     }
 }

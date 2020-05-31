@@ -3,8 +3,8 @@ using Identity.Models;
 using Service.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
-using Service.Values;
-using Identity.Extensions;
+using Common.Enums;
+using System;
 
 namespace Identity
 {
@@ -37,7 +37,7 @@ namespace Identity
                 Succeeded = result.Succeeded,
                 Errors = result.Errors.Select(e => new Service.Values.IdentityError
                 {
-                    Error = e.GetEnum(),
+                    Error = (IdentityErrorEnum)Enum.Parse(typeof(IdentityErrorEnum), e.Code),
                     Description = e.Description
                 }).ToArray()
             };                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

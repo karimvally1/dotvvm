@@ -13,7 +13,10 @@ namespace Common
             ResourceManager = IdentityErrors.ResourceManager;
         }
 
-        public override IdentityError PasswordRequiresDigit() { return new IdentityError { Code = nameof(PasswordRequiresDigit), Description = ResourceManager.GetString("PasswordRequiresDigit") }; }
-        public override IdentityError PasswordRequiresLower() { return new IdentityError { Code = nameof(PasswordRequiresLower), Description = ResourceManager.GetString("PasswordRequiresLower") }; }
+        public override IdentityError PasswordRequiresDigit() { return new IdentityError { Code = nameof(PasswordRequiresDigit), Description = IdentityErrors.PasswordRequiresDigit }; }
+        public override IdentityError PasswordRequiresLower() { return new IdentityError { Code = nameof(PasswordRequiresLower), Description = IdentityErrors.PasswordRequiresLower }; }
+        public override IdentityError PasswordRequiresNonAlphanumeric() { return new IdentityError { Code = nameof(PasswordRequiresNonAlphanumeric), Description = IdentityErrors.PasswordRequiresNonAlphanumeric }; }
+        public override IdentityError PasswordRequiresUpper() { return new IdentityError { Code = nameof(PasswordRequiresUpper), Description = IdentityErrors.PasswordRequiresUpper }; }
+
     }
 }

@@ -4,7 +4,7 @@ using Service.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Enums;
-using System;
+using Common.Utilities;
 
 namespace Identity
 {
@@ -37,7 +37,7 @@ namespace Identity
                 Succeeded = result.Succeeded,
                 Errors = result.Errors.Select(e => new Service.Values.IdentityError
                 {
-                    Error = (IdentityErrorEnum)Enum.Parse(typeof(IdentityErrorEnum), e.Code),
+                    Error = EnumHelper.FromString<IdentityErrorEnum>(e.Code),
                     Description = e.Description
                 }).ToArray()
             };                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

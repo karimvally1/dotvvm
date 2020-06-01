@@ -3,25 +3,26 @@ using Service;
 using Service.Values;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Web.Attributes;
 
 namespace Web.ViewModels
 {
     public class RegisterViewModel : MasterPageViewModel
     {
-        [Required]
+        [CustomRequired]
         public string FirstName { get; set; }
 
-        [Required]
+        [CustomRequired]
         public string LastName { get; set; }
 
-        [Required]
+        [CustomRequired]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [CustomRequired]
         public string UserName { get; set; }
 
-        [Required]
+        [CustomRequired]
         public string Password { get; set; }
 
         private readonly IUserService _userService;

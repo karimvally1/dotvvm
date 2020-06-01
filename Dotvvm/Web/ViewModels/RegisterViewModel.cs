@@ -1,4 +1,5 @@
-﻿using DotVVM.Framework.ViewModel.Validation;
+﻿using Common.Enums;
+using DotVVM.Framework.ViewModel.Validation;
 using Service;
 using Service.Values;
 using System.ComponentModel.DataAnnotations;
@@ -59,11 +60,20 @@ namespace Web.ViewModels
             {
                 switch (error.Error)
                 {
-                    case Common.Enums.IdentityErrorEnum.PasswordRequiresDigit:
-                    case Common.Enums.IdentityErrorEnum.PasswordRequiresLower:
-                    case Common.Enums.IdentityErrorEnum.PasswordRequiresNonAlphanumeric:
-                    case Common.Enums.IdentityErrorEnum.PasswordRequiresUpper:
+                    case IdentityErrorEnum.PasswordRequiresDigit:
+                    case IdentityErrorEnum.PasswordRequiresLower:
+                    case IdentityErrorEnum.PasswordRequiresNonAlphanumeric:
+                    case IdentityErrorEnum.PasswordRequiresUpper:
+                    case IdentityErrorEnum.PasswordTooShort:
                         this.AddModelError(v => v.Password, error.Description);
+                        break;
+                    case IdentityErrorEnum.InvalidUserName:
+                    case IdentityErrorEnum.DuplicateUserName:
+                        this.AddModelError(v => v.UserName, error.Description);
+                        break;
+                    case IdentityErrorEnum.InvalidEmail:
+                    case IdentityErrorEnum.DuplicateEmail:
+                        this.AddModelError(v => v.Email, error.Description);
                         break;
                 }
             }

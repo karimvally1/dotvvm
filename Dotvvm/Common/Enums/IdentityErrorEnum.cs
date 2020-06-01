@@ -8,6 +8,17 @@ namespace Common.Enums
         PasswordRequiresDigit,
         PasswordRequiresLower,
         PasswordRequiresNonAlphanumeric,
-        PasswordRequiresUpper
+        PasswordRequiresUpper,
+        PasswordTooShort,
+        UserAlreadyHasPassword,
+        PasswordMismatch,
+        InvalidUserName,
+        DuplicateUserName,
+        InvalidEmail,
+        DuplicateEmail,
+        InvalidRoleName,
+        DuplicateRoleName,
+        UserAlreadyInRole,
+        UserNotInRole
     }
 }  

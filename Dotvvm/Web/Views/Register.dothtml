@@ -3,23 +3,27 @@
 
     <dot:Content ContentPlaceHolderID="MainContent">
         <h1>{{ value: Title }}</h1>
-        <form>
-            <div>
-                Firstname: <dot:TextBox Text="{{ value: FirstName }}" />
-            </div>
-            <div>
-                Lastname: <dot:TextBox Text="{{ value: LastName }}" />
-            </div>
-            <div>
-                Email: <dot:TextBox Text="{{ value: Email }}" />
-            </div>
-            <div>
-                Username: <dot:TextBox Text="{{ value: UserName }}" />
-            </div>
-            <div>
-                Password: <dot:TextBox Type="Password" Text="{{ value: Password }}" />
-            </div>
-            <dot:ValidationSummary />
+        <form Validator.InvalidCssClass="has-error">
+            <p>
+                Firstname: <dot:TextBox Text="{ value: FirstName }" />
+                <dot:Validator Value="{ value: FirstName }" ShowErrorMessageText="true" />
+            </p>
+            <p>
+                Lastname: <dot:TextBox Text="{ value: LastName }" />
+                <dot:Validator Value="{ value: LastName }" ShowErrorMessageText="true" />
+            </p>
+            <p>
+                Email: <dot:TextBox Text="{ value: Email }" />
+                <dot:Validator Value="{ value: Email }" ShowErrorMessageText="true" />
+            </p>
+            <p>
+                Username: <dot:TextBox Text="{ value: UserName }" />
+                <dot:Validator Value="{ value: UserName }" ShowErrorMessageText="true" />
+            </p>
+            <p>
+                Password: <dot:TextBox Type="Password" Text="{ value: Password }" />
+                <dot:Validator Value="{ value: Password }" ShowErrorMessageText="true" />
+            </p>
             <dot:Button IsSubmitButton="true" Click="{command: Create()}">Create</dot:Button>
         </form>
     </dot:Content>

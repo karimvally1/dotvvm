@@ -1,6 +1,8 @@
-﻿using Service;
+﻿using DotVVM.Framework.ViewModel.Validation;
+using Service;
 using Service.Values;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Web.ViewModels
 {
@@ -30,7 +32,7 @@ namespace Web.ViewModels
             _userService = userService;
         }
 
-        public async void Create()
+        public async Task Create()
         {
             var accountRegister = new AccountRegister
             {
@@ -42,6 +44,28 @@ namespace Web.ViewModels
             };
 
             var result = await _userService.Register(accountRegister);
+
+            if (!result.Succeeded)
+            {
+                MapErrorsToViewModel(result.Errors);
+                Context.FailOnInvalidModelState();
+            }
+        }
+
+        private void MapErrorsToViewModel(IdentityError[] errors)
+        {
+            foreach (var error in errors)
+            {
+                switch (error.Error)
+                {
+                    case Common.Enums.IdentityErrorEnum.PasswordRequiresDigit:
+                    case Common.Enums.IdentityErrorEnum.PasswordRequiresLower:
+                    case Common.Enums.IdentityErrorEnum.PasswordRequiresNonAlphanumeric:
+                    case Common.Enums.IdentityErrorEnum.PasswordRequiresUpper:
+                        this.AddModelError(v => v.Password, error.Description);
+                        break;
+                }
+            }
         }
     }
 }

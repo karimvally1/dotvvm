@@ -52,6 +52,8 @@ namespace Web.ViewModels
                 MapErrorsToViewModel(result.Errors);
                 Context.FailOnInvalidModelState();
             }
+
+            Context.RedirectToRoute("Home");
         }
 
         private void MapErrorsToViewModel(IdentityError[] errors)

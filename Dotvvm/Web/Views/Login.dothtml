@@ -1,0 +1,20 @@
+﻿@viewModel Web.ViewModels.LoginViewModel, Web
+@masterPage Views/MasterPage.dotmaster
+
+    <dot:Content ContentPlaceHolderID="MainContent">
+        <h1>{{ value: Title }}</h1>
+        <form Validator.InvalidCssClass="has-error">
+            <p>
+                Username: <dot:TextBox Text="{ value: UserName }" />
+                <dot:Validator Value="{ value: UserName }" ShowErrorMessageText="true" />
+            </p>
+            <p>
+                Password: <dot:TextBox Type="Password" Text="{ value: Password }" />
+                <dot:Validator Value="{ value: Password }" ShowErrorMessageText="true" />
+            </p>
+            <p>{{ value: ErrorMessage }}</p>
+            <dot:Button IsSubmitButton="true" Click="{command: Login()}">Login</dot:Button>
+        </form>
+    </dot:Content>
+
+  

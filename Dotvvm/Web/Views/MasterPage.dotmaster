@@ -4,10 +4,21 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Dotvvm - {{value: Title}}</title>
+    <title>Dotvvm - {{ value: Title }}</title>
 </head>
 <body>
-	<dot:ContentPlaceHolder ID="MainContent">
+    <nav class="header">
+        <div class="collapse navbar-collapse" id="navbar" RenderSettings.Mode="Server">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <dot:LinkButton Text="Sign Out" class="header-item" Validation.Enabled="false" />
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <dot:ContentPlaceHolder ID="MainContent">
         Oops! No content can be found :(
     </dot:ContentPlaceHolder>
 </body>

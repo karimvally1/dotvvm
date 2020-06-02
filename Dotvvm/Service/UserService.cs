@@ -1,5 +1,4 @@
-﻿using Service.Interfaces;
-using Service.Models;
+﻿using Service.Models;
 using Service.Values;
 using System.Threading.Tasks;
 
@@ -7,11 +6,11 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        private readonly IIdentityManager<User> _userManager;
+        private readonly IIdentityManager<User> _identityManager;
 
-        public UserService(IIdentityManager<User> userManager)
-        {
-            _userManager = userManager;
+        public UserService(IIdentityManager<User> identityManager)
+        {  
+            _identityManager = identityManager;
         }
 
         public async Task<IdentityResult> Register(AccountRegister accountRegister)
@@ -24,7 +23,7 @@ namespace Service
                 UserName = accountRegister.UserName
             };
 
-            return await _userManager.Create(user, accountRegister.Password);
+            return await _identityManager.Create(user, accountRegister.Password);
         }
     }
 }

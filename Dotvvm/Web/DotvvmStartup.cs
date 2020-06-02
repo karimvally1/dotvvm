@@ -16,7 +16,8 @@ namespace Web
 
         private void ConfigureRoutes(DotvvmConfiguration config, string applicationPath)
         {
-            config.RouteTable.Add("CreateUser", "", "Views/Register.dothtml");
+            config.RouteTable.Add("Register", "register", "Views/Register.dothtml");
+            config.RouteTable.Add("Home", "", "Views/Home.dothtml");
             config.RouteTable.AutoDiscoverRoutes(new DefaultRouteStrategy(config));    
         }
 

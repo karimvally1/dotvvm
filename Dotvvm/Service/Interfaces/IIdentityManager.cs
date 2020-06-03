@@ -6,7 +6,9 @@ namespace Service
 {
     public interface IIdentityManager
     {
-        Task<SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure);
+        Task<User> FindByUserName(string userName);
+        Task<User> FindByEmail(string email);
+        Task<SignInResult> CheckPassword(string userName, string password, bool isPersistent, bool lockoutOnFailure);
         Task<IdentityResult> Create(User user, string password);
     }
 }

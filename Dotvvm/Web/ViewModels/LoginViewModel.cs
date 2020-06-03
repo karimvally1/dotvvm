@@ -1,6 +1,6 @@
 ﻿using DotVVM.Framework.ViewModel;
 using Service;
-using Service.Values;
+using Service.Models;
 using System.Threading.Tasks;
 using Web.Attributes;
 
@@ -9,7 +9,7 @@ namespace Web.ViewModels
     public class LoginViewModel : MasterPageViewModel
     {
         [CustomRequired]
-        public string UserName { get; set; }
+        public string UserNameOrEmail { get; set; }
 
         [CustomRequired]
         public string Password { get; set; }
@@ -17,36 +17,32 @@ namespace Web.ViewModels
         [Bind(Direction.ServerToClient)]
         public string ErrorMessage { get; set; }
 
+        private readonly IUserService _userService;
         private readonly IAuthService _authService;
 
-        public LoginViewModel(IAuthService authService)
+        public LoginViewModel(IUserService userService, IAuthService authService)
         {
             Title = "Login";
+            _userService = userService;
             _authService = authService;
         }
 
         public async Task Login()
         {
-            var result = await _authService.Login(UserName, Password);
+            var user = UserNameOrEmail.Contains("@") ?
+                await _userService.GetByEmail(UserNameOrEmail) :
+                await _userService.GetByUserName(UserNameOrEmail);
 
-            if (result == default(SignInResult))
+            if (user == default(User))
             {
-                ErrorMessage = "Invalid username or password";
+                ErrorMessage = "Invalid login information, please try again.";
                 return;
             }
 
+            var result = await _authService.Login(user.UserName, Password);
+
             if (!result.Succeeded)
-            {
-                switch (result.Error)
-                {
-                    case Common.Enums.SignInErrorEnum.IsLockedOut:
-                        ErrorMessage = "This account is locked out, please contact an administrator.";
-                        break;
-                    default:
-                        ErrorMessage = "Invalid username or password";
-                        break;
-                }
-            }
+                ErrorMessage = "Invalid login information, please try again.";
         }
     }
 }

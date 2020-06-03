@@ -13,14 +13,14 @@ namespace Service
             _identityManager = identityManager;
         }
 
+        public async Task<User> GetByEmail(string email)
+        {
+           return await _identityManager.FindByEmail(email);
+        }
+
         public async Task<User> GetByUserName(string userName)
         {
             return await _identityManager.FindByUserName(userName);
-        }
-
-        public async Task<User> GetByEmail(string email)
-        {
-            return await _identityManager.FindByEmail(email);
         }
 
         public async Task<IdentityResult> Register(AccountRegister accountRegister)

@@ -19,30 +19,35 @@ namespace Identity
             _signInManager = signInManager;
         }
 
-        public async Task<Service.Values.SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure)
+        public async Task<Service.Models.User> FindByUserName(string userName)
         {
             var applicationUser = await _userManager.FindByNameAsync(userName);
 
             if (applicationUser == default(ApplicationUser))
                 return null;
 
-            var result = await _signInManager.PasswordSignInAsync(applicationUser, password, isPersistent, lockoutOnFailure);
+            return MapApplicationUserToUser(applicationUser);
+        }
 
-            if (!result.Succeeded)
-            {
-                var signInResult = new Service.Values.SignInResult();
-                signInResult.Succeeded = result.Succeeded;
-                if (result.IsLockedOut)
-                    signInResult.Error = SignInErrorEnum.IsLockedOut;
-                else if (result.IsNotAllowed)
-                    signInResult.Error = SignInErrorEnum.IsNotAllowed;
-                else if (result.RequiresTwoFactor)
-                    signInResult.Error = SignInErrorEnum.RequiresTwoFactor;
-            }
+        public async Task<Service.Models.User> FindByEmail(string email)
+        {
+            var applicationUser = await _userManager.FindByEmailAsync(email);
 
+            if (applicationUser == default(ApplicationUser))
+                return null;
+
+            return MapApplicationUserToUser(applicationUser);
+        }
+
+        public async Task<Service.Values.SignInResult> CheckPassword(string userName, string password, bool isPersistent, bool lockoutOnFailure)
+        {
+            var result = await _signInManager.PasswordSignInAsync(userName, password, isPersistent, lockoutOnFailure);
             return new Service.Values.SignInResult
             {
-                Succeeded = result.Succeeded
+                Succeeded = result.Succeeded,
+                IsLockedOut = result.IsLockedOut,
+                IsNotAllowed = result.IsNotAllowed,
+                RequiresTwoFactor = result.RequiresTwoFactor
             };
         }
 
@@ -52,7 +57,7 @@ namespace Identity
             {
                 Email = user.Email,
                 UserName = user.UserName,
-                User = new User
+                User = new Models.User
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName
@@ -70,6 +75,19 @@ namespace Identity
                     Description = e.Description
                 }).ToArray()
             };                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        }
+
+        private Service.Models.User MapApplicationUserToUser(ApplicationUser applicationUser)
+        {
+            return new Service.Models.User
+            {
+                AspNetUserId = applicationUser.Id,
+                Id = applicationUser.User.Id,
+                Email = applicationUser.Email,
+                UserName = applicationUser.UserName,
+                FirstName = applicationUser.User.FirstName,
+                LastName = applicationUser.User.LastName
+            };
         }
     }
 }

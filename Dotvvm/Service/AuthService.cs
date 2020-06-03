@@ -1,5 +1,4 @@
-﻿using Service.Models;
-using Service.Values;
+﻿using Service.Values;
 using System.Threading.Tasks;
 
 namespace Service
@@ -15,7 +14,7 @@ namespace Service
 
         public async Task<SignInResult> Login(string userName, string password)
         {
-            return await _identityManager.PasswordSignIn(userName, password, true, true);
+            return await _identityManager.CheckPassword(userName, password, true, true);
         }
     }
 }

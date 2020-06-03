@@ -5,8 +5,8 @@
         <h1>{{ value: Title }}</h1>
         <form Validator.InvalidCssClass="has-error">
             <p>
-                Username: <dot:TextBox Text="{ value: UserName }" />
-                <dot:Validator Value="{ value: UserName }" ShowErrorMessageText="true" />
+                Username/Email: <dot:TextBox Text="{ value: UserNameOrEmail }" />
+                <dot:Validator Value="{ value: UserNameOrEmail }" ShowErrorMessageText="true" />
             </p>
             <p>
                 Password: <dot:TextBox Type="Password" Text="{ value: Password }" />

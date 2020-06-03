@@ -1,4 +1,5 @@
-﻿using Service.Values;
+﻿using Service.Models;
+using Service.Values;
 using System.Threading.Tasks;
 
 namespace Service

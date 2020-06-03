@@ -8,7 +8,7 @@ using Service;
 
 namespace Identity
 {
-    public class IdentityManager : IIdentityManager<Service.Models.User>
+    public class IdentityManager : IIdentityManager
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;

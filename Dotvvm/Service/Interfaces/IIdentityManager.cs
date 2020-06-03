@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public interface IIdentityManager<T> where T : User
+    public interface IIdentityManager
     {
         Task<SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure);
-        Task<IdentityResult> Create(T user, string password);
+        Task<IdentityResult> Create(User user, string password);
     }
 }

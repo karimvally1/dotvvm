@@ -6,9 +6,9 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        private readonly IIdentityManager<User> _identityManager;
+        private readonly IIdentityManager _identityManager;
 
-        public UserService(IIdentityManager<User> identityManager)
+        public UserService(IIdentityManager identityManager)
         {  
             _identityManager = identityManager;
         }

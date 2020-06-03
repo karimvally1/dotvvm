@@ -6,9 +6,9 @@ namespace Service
 {
     public class AuthService : IAuthService
     {
-        private readonly IIdentityManager<User> _identityManager;
+        private readonly IIdentityManager _identityManager;
 
-        public AuthService(IIdentityManager<User> identityManager)
+        public AuthService(IIdentityManager identityManager)
         {
             _identityManager = identityManager;
         }

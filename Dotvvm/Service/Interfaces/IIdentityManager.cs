@@ -2,13 +2,12 @@
 using Service.Values;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Service.Interfaces
 {
     public interface IIdentityManager
     {
-        Task<User> FindByUserName(string userName);
-        Task<User> FindByEmail(string email);
-        Task<SignInResult> CheckPassword(string userName, string password, bool isPersistent, bool lockoutOnFailure);
+        Task<SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure);
+
         Task<IdentityResult> Create(User user, string password);
     }
 }

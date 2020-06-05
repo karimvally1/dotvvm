@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Service;
 using Identity;
+using Service.Interfaces;
 
 namespace Web.Config
 {
@@ -9,8 +10,8 @@ namespace Web.Config
         public static void AddServices(this IServiceCollection services)
         {
             services.AddTransient<IIdentityManager, IdentityManager>();
-            services.AddTransient<IAuthService, AuthService>();
-            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IIdentityProvider, IdentityProvider>();
+            services.AddTransient<IAccountService, AccountService>();
         }
     }
 }

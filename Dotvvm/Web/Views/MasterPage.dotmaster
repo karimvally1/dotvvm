@@ -13,7 +13,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <dot:LinkButton Text="Sign Out" class="header-item" Validation.Enabled="false" />
+                    <dot:LinkButton Click="{command: LogOut()}" Text="Log Out" class="header-item" Validation.Enabled="false" />
                 </li>
             </ul>
         </div>

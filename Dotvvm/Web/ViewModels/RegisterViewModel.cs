@@ -1,6 +1,7 @@
 ﻿using Common.Enums;
 using DotVVM.Framework.ViewModel.Validation;
 using Service;
+using Service.Interfaces;
 using Service.Values;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Web.ViewModels
 {
     public class RegisterViewModel : MasterPageViewModel
     {
+        public override string Title => "Register";
+
         [CustomRequired]
         public string FirstName { get; set; }
 
@@ -23,15 +26,14 @@ namespace Web.ViewModels
         [CustomRequired]
         public string UserName { get; set; }
 
-        [CustomRequired]
+        [CustomRequired]  
         public string Password { get; set; }
 
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public RegisterViewModel(IUserService userService)
+        public RegisterViewModel(IAccountService accountService)
         {
-            Title = "Create an account";
-            _userService = userService;
+            _accountService = accountService;
         }
 
         public async Task Create()
@@ -45,7 +47,7 @@ namespace Web.ViewModels
                 Password = Password
             };
 
-            var result = await _userService.Register(accountRegister);
+            var result = await _accountService.Register(accountRegister);
 
             if (!result.Succeeded)
             {

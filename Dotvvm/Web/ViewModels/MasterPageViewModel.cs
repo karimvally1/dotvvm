@@ -1,9 +1,15 @@
 ﻿using DotVVM.Framework.ViewModel;
+using System.Threading.Tasks;
 
 namespace Web.ViewModels
 {
-    public class MasterPageViewModel : DotvvmViewModelBase
+    public abstract class MasterPageViewModel : DotvvmViewModelBase
     {
-        public string Title { get; set; }
+        public abstract string Title { get; }
+
+        public async Task LogOut()
+        {
+            Context.RedirectToRoute("Login");
+        }
     }
 }

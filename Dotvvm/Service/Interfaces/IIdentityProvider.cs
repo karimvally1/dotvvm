@@ -1,13 +1,11 @@
 ﻿using Service.Models;
-using Service.Values;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Service.Interfaces
 {
-    public interface IUserService
+    public interface IIdentityProvider
     {
         Task<User> GetByUserName(string userName);
         Task<User> GetByEmail(string email);
-        Task<IdentityResult> Register(AccountRegister accountRegister);
     }
 }

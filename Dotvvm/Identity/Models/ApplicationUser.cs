@@ -5,6 +5,6 @@ namespace Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public virtual User User { get; set; }
+        public User User { get; set; }
     }
 }

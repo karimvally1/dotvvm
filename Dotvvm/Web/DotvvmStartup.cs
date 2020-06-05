@@ -14,10 +14,11 @@ namespace Web
             ConfigureResources(config, applicationPath);
         }
 
-        private void ConfigureRoutes(DotvvmConfiguration config, string applicationPath)
+        private void ConfigureRoutes(DotvvmConfiguration config, string applicationPath)     
         {
             config.RouteTable.Add("Register", "register", "Views/Register.dothtml");
-            config.RouteTable.Add("Home", "", "Views/Home.dothtml");
+            config.RouteTable.Add("Home", "home", "Views/Home.dothtml");
+            config.RouteTable.Add("Login", "login", "Views/Login.dothtml");
             config.RouteTable.AutoDiscoverRoutes(new DefaultRouteStrategy(config));    
         }
 

@@ -12,6 +12,8 @@ using Web.Config;
 using Identity;
 using Identity.Models;
 using Common;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System;
 
 namespace Web
 {
@@ -26,19 +28,54 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization();
+            
             services.AddDataProtection();
             services.AddAuthorization();
             services.AddWebEncoders();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<IdentityDbContext>()
+            .AddUserManager<UserManager<ApplicationUser>>()
+            .AddDefaultTokenProviders()
+            .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.Cookie.Name = "YourAppCookieName";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/login";
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                options.User.RequireUniqueEmail = true;
+            });
+
             services.AddDotVVM<DotvvmStartup>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                            .AddEntityFrameworkStores<IdentityDbContext>()
-                            .AddUserManager<UserManager<ApplicationUser>>()
-                            .AddDefaultTokenProviders()
-                            .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
-
-            services.AddDbContext<IdentityDbContext>(options =>
+            services
+                .AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("dotvvm")),
                 ServiceLifetime.Transient)
                 .AddDbContext<ApplicationDbContext>(options =>
@@ -50,6 +87,7 @@ namespace Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, IdentityDbContext identityDbContext)
         {
+            app.UseAuthentication();
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);
             dotvvmConfiguration.AssertConfigurationIsValid();
             
@@ -63,8 +101,6 @@ namespace Web
                 dbContext.Database.EnsureCreated();
                 identityDbContext.Database.EnsureCreated();
             }
-
-            app.UseAuthentication();
         }
     }
 }

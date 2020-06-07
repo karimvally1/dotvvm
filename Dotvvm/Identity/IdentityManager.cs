@@ -2,9 +2,10 @@
 using Common.Utilities;
 using Identity.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Service.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Identity
@@ -18,6 +19,13 @@ namespace Identity
         {
             _userManager = userManager;
             _signInManager = signInManager;
+        }
+
+        public async Task AddClaims(string userName, IDictionary<string, string> claims)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(userName);   
+            await _userManager.AddClaimsAsync(applicationUser, MapDictionaryToClaims(claims));
+            await _signInManager.RefreshSignInAsync(applicationUser);
         }
 
         public async Task<Service.Values.SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure)
@@ -56,6 +64,11 @@ namespace Identity
                     Description = e.Description
                 }).ToArray()
             };
+        }
+
+        private IEnumerable<Claim> MapDictionaryToClaims(IDictionary<string, string> claims)
+        {
+            return claims.Select(c => new Claim(c.Key, c.Value));
         }
     }
 }

@@ -19,28 +19,16 @@ namespace Web.ViewModels
         [Bind(Direction.ServerToClient)]
         public string ErrorMessage { get; set; }
 
-        private readonly IIdentityManager _identityManager;
-        private readonly IIdentityProvider _identityProvider;
+        private readonly IAuthService _authService;
 
-        public LoginViewModel(IIdentityManager identityManager, IIdentityProvider identityProvider)
+        public LoginViewModel(IAuthService authService)
         {
-            _identityManager = identityManager;
-            _identityProvider = identityProvider;
+            _authService = authService;
         }
 
         public async Task Login()
         {
-            var user = UserNameOrEmail.Contains("@") ?
-                await _identityProvider.GetByEmail(UserNameOrEmail) :
-                await _identityProvider.GetByUserName(UserNameOrEmail);
-
-            if (user == default(User))
-            {
-                ErrorMessage = "Invalid login information, please try again.";
-                return;
-            }
-
-            var result = await _identityManager.PasswordSignIn(user.UserName, Password, true, true);
+            var result = await _authService.SignIn(UserNameOrEmail, Password);
 
             if (!result.Succeeded)
             {

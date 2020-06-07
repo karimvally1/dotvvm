@@ -12,6 +12,7 @@ namespace Web.Config
             services.AddTransient<IIdentityManager, IdentityManager>();
             services.AddTransient<IIdentityProvider, IdentityProvider>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAuthService, AuthService>();
         }
     }
 }

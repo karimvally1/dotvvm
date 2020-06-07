@@ -9,7 +9,7 @@ namespace Service.Interfaces
     {
         Task AddClaims(string userName, IDictionary<string, string> claims);
         Task<SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure);
-
+        Task SignOut();
         Task<IdentityResult> Create(User user, string password);
     }
 }

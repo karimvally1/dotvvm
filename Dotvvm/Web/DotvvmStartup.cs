@@ -19,6 +19,7 @@ namespace Web
             config.RouteTable.Add("Register", "register", "Views/Register.dothtml");
             config.RouteTable.Add("Home", "home", "Views/Home.dothtml");
             config.RouteTable.Add("Login", "login", "Views/Login.dothtml");
+            config.RouteTable.Add("Logout", "logout", "Views/Logout.dothtml");
             config.RouteTable.AutoDiscoverRoutes(new DefaultRouteStrategy(config));    
         }
 

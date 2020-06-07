@@ -8,15 +8,13 @@
 </head>
 <body>
     <nav class="header">
-        <div class="collapse navbar-collapse" id="navbar" RenderSettings.Mode="Server">
-            <ul class="nav navbar-nav">
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <dot:LinkButton Click="{command: LogOut()}" Text="Log Out" class="header-item" Validation.Enabled="false" />
-                </li>
-            </ul>
-        </div>
+        <dot:AuthenticatedView>
+            <AuthenticatedTemplate>
+                <div class="signout-box">
+                    <dot:LinkButton Text="Log Out" Click="{command: LogOut()}" Validation.Enabled="false" />
+                </div>
+            </AuthenticatedTemplate>
+        </dot:AuthenticatedView>
     </nav>
     <dot:ContentPlaceHolder ID="MainContent">
         Oops! No content can be found :(

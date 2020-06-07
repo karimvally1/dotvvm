@@ -9,7 +9,7 @@ namespace Web.ViewModels
 
         public async Task LogOut()
         {
-            Context.RedirectToRoute("Login");
+            Context.RedirectToRoute("Logout");
         }
     }
 }

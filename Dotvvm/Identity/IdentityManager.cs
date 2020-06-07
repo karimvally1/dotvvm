@@ -40,6 +40,11 @@ namespace Identity
             };
         }
 
+        public async Task SignOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
         public async Task<Service.Values.IdentityResult> Create(Service.Models.User user, string password)
         {
             var applicationUser = new ApplicationUser

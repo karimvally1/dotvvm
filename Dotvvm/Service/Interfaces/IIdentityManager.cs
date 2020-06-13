@@ -10,6 +10,9 @@ namespace Service.Interfaces
         Task AddClaims(string userName, IDictionary<string, string> claims);
         Task<SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure);
         Task SignOut();
+        Task<string> CreateEmailConfirmationToken(string userName);
+        Task<IdentityResult> ConfirmEmailToken(string userName, string token);
+        Task<bool> IsEmailConfirmed(string userName);
         Task<IdentityResult> Create(User user, string password);
     }
 }

@@ -1,6 +1,7 @@
-﻿@viewModel Web.ViewModels.LogoutViewModel, Web
+﻿@viewModel Web.ViewModels.Account.ActivateViewModel, Web
 @masterPage Views/MasterPage.dotmaster
 
 <dot:Content ContentPlaceHolderID="MainContent">
+    <h1>{{ value: Title }}</h1>
 </dot:Content>
 

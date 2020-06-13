@@ -1,8 +1,4 @@
 ﻿using DotVVM.Framework.Runtime.Filters;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Web.ViewModels
 {
@@ -14,12 +10,6 @@ namespace Web.ViewModels
         public HomeViewModel()
         {
             
-        }
-
-        public override Task Init()
-        {
-            var identity = Context.HttpContext;
-            return base.Init();
         }
     }
 }

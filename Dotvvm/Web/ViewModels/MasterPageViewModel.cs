@@ -1,5 +1,6 @@
 ﻿using DotVVM.Framework.ViewModel;
 using System.Threading.Tasks;
+using Web.Constants;
 
 namespace Web.ViewModels
 {
@@ -9,7 +10,7 @@ namespace Web.ViewModels
 
         public async Task LogOut()
         {
-            Context.RedirectToRoute("Logout");
+            Context.RedirectToRoute(Routes.Logout);
         }
     }
 }

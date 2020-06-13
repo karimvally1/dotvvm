@@ -13,6 +13,7 @@ namespace Web.Config
             services.AddTransient<IIdentityProvider, IdentityProvider>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
     }
 }

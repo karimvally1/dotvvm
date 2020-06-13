@@ -15,6 +15,18 @@ namespace Identity
             _userManager = userManager;
         }
 
+        public async Task<Service.Models.User> GetById(string userId)
+        {
+            var applicationUser = await _userManager.Users
+                .Include(a => a.User)
+                .SingleOrDefaultAsync(a => a.Id == userId);
+
+            if (applicationUser == default(ApplicationUser))
+                return null;
+
+            return MapApplicationUserToUser(applicationUser);
+        }
+
         public async Task<Service.Models.User> GetByUserName(string userName)
         {
             var applicationUser = await _userManager.Users

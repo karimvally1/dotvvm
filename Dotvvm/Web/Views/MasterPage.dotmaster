@@ -15,6 +15,7 @@
                 </div>
             </AuthenticatedTemplate>
         </dot:AuthenticatedView>
+
     </nav>
     <dot:ContentPlaceHolder ID="MainContent">
         Oops! No content can be found :(

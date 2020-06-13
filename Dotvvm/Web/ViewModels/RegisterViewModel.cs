@@ -1,11 +1,11 @@
 ﻿using Common.Enums;
 using DotVVM.Framework.ViewModel.Validation;
-using Service;
 using Service.Interfaces;
 using Service.Values;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Web.Attributes;
+using Web.Constants;
 
 namespace Web.ViewModels
 {
@@ -30,10 +30,12 @@ namespace Web.ViewModels
         public string Password { get; set; }
 
         private readonly IAccountService _accountService;
+        private readonly IIdentityProvider _identityProvider;
 
-        public RegisterViewModel(IAccountService accountService)
+        public RegisterViewModel(IAccountService accountService, IIdentityProvider identityProvider)
         {
             _accountService = accountService;
+            _identityProvider = identityProvider;
         }
 
         public async Task Create()
@@ -55,7 +57,8 @@ namespace Web.ViewModels
                 Context.FailOnInvalidModelState();
             }
 
-            Context.RedirectToRoute("Home");
+            var user = await _identityProvider.GetByUserName(accountRegister.UserName);
+            Context.RedirectToRoute(Routes.ConfirmEmail, query: new { userId = user.AspNetUserId });
         }
 
         private void MapErrorsToViewModel(IdentityError[] errors)

@@ -45,6 +45,34 @@ namespace Identity
             await _signInManager.SignOutAsync();
         }
 
+        public async Task<string> CreateEmailConfirmationToken(string userName)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(userName);
+            return await _userManager.GenerateEmailConfirmationTokenAsync(applicationUser);
+        }
+
+        public async Task<Service.Values.IdentityResult> ConfirmEmailToken(string userName, string token)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(userName);
+            var result = await _userManager.ConfirmEmailAsync(applicationUser, token);
+         
+            return new Service.Values.IdentityResult
+            {
+                Succeeded = result.Succeeded,
+                Errors = result.Errors.Select(e => new Service.Values.IdentityError
+                {
+                    Error = EnumHelper.FromString<IdentityErrorEnum>(e.Code),
+                    Description = e.Description
+                }).ToArray()
+            };
+        }
+
+        public async Task<bool> IsEmailConfirmed(string userName)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(userName);
+            return await _userManager.IsEmailConfirmedAsync(applicationUser);
+        }
+
         public async Task<Service.Values.IdentityResult> Create(Service.Models.User user, string password)
         {
             var applicationUser = new ApplicationUser
@@ -60,14 +88,24 @@ namespace Identity
 
             var result = await _userManager.CreateAsync(applicationUser, password);
 
+            if (!result.Succeeded)
+            {
+                return new Service.Values.IdentityResult
+                {
+                    Succeeded = result.Succeeded,
+                    Errors = result.Errors.Select(e => new Service.Values.IdentityError
+                    {
+                        Error = EnumHelper.FromString<IdentityErrorEnum>(e.Code),
+                        Description = e.Description
+                    }).ToArray()
+                };
+            }
+            
+            await _signInManager.SignInAsync(applicationUser, true);
+
             return new Service.Values.IdentityResult
             {
-                Succeeded = result.Succeeded,
-                Errors = result.Errors.Select(e => new Service.Values.IdentityError
-                {
-                    Error = EnumHelper.FromString<IdentityErrorEnum>(e.Code),
-                    Description = e.Description
-                }).ToArray()
+                Succeeded = true
             };
         }
 

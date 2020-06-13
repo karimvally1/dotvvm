@@ -1,6 +1,5 @@
 ﻿using DotVVM.Framework.ViewModel;
 using Service.Interfaces;
-using Service.Models;
 using System.Threading.Tasks;
 using Web.Attributes;
 

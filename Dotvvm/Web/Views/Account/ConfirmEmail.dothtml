@@ -1,0 +1,9 @@
+﻿@viewModel Web.ViewModels.Account.ConfirmEmailViewModel, Web
+@masterPage Views/MasterPage.dotmaster
+
+    <dot:Content ContentPlaceHolderID="MainContent">
+        <h1>{{ value: Title }}</h1>
+        <p>An email containing an activation link to the email address provided has been sent. Please click that link to activate your account and login.</p>
+        <dot:Button Click="{command: Resend()}">Resend email</dot:Button>
+    </dot:Content>
+

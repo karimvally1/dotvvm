@@ -1,5 +1,6 @@
 ﻿using Service.Interfaces;
 using System.Threading.Tasks;
+using Web.Constants;
 
 namespace Web.ViewModels
 {
@@ -17,7 +18,7 @@ namespace Web.ViewModels
         public override async Task Init()
         {
             await _identityManager.SignOut();
-            Context.RedirectToRoute("Login");
+            Context.RedirectToRoute(Routes.Login);
         }
     }
 }

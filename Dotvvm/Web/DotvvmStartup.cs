@@ -1,12 +1,12 @@
 ﻿using DotVVM.Framework.Configuration;
 using DotVVM.Framework.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Web.Constants;
 
 namespace Web
 {
     public class DotvvmStartup : IDotvvmStartup, IDotvvmServiceConfigurator
     {
-        // For more information about this class, visit https://dotvvm.com/docs/tutorials/basics-project-structure
         public void Configure(DotvvmConfiguration config, string applicationPath)
         {
             ConfigureRoutes(config, applicationPath);
@@ -16,22 +16,22 @@ namespace Web
 
         private void ConfigureRoutes(DotvvmConfiguration config, string applicationPath)     
         {
-            config.RouteTable.Add("Register", "register", "Views/Register.dothtml");
-            config.RouteTable.Add("Home", "home", "Views/Home.dothtml");
-            config.RouteTable.Add("Login", "login", "Views/Login.dothtml");
-            config.RouteTable.Add("Logout", "logout", "Views/Logout.dothtml");
+            config.RouteTable.Add(Routes.Register, Paths.Register, "Views/Register.dothtml");
+            config.RouteTable.Add(Routes.Login, Paths.Login, "Views/Login.dothtml");
+            config.RouteTable.Add(Routes.Logout, Paths.Logout, "Views/Logout.dothtml");
+            config.RouteTable.Add(Routes.Home, Paths.Home, "Views/Home.dothtml");
+            config.RouteTable.Add(Routes.ConfirmEmail, Paths.ConfirmEmail, "Views/Account/ConfirmEmail.dothtml");
+            config.RouteTable.Add(Routes.Activate, Paths.Activate, "Views/Account/Activate.dothtml");
+            config.RouteTable.Add(Routes.ServerError, Paths.ServerError, "Views/ServerError.dothtml");
+            config.RouteTable.Add(Routes.NotFound, Paths.NotFound, "Views/NotFoundError.dothtml");
             config.RouteTable.AutoDiscoverRoutes(new DefaultRouteStrategy(config));    
-        }
+        }  
 
         private void ConfigureControls(DotvvmConfiguration config, string applicationPath)
-        {
-            // register code-only controls and markup controls
-        }
+        { }
 
         private void ConfigureResources(DotvvmConfiguration config, string applicationPath)
-        {
-            // register custom resources and adjust paths to the built-in resources
-        }
+        { }
 
 		public void ConfigureServices(IDotvvmServiceCollection options)
         {

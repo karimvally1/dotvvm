@@ -14,6 +14,7 @@ using Identity.Models;
 using Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using Web.Constants;
 
 namespace Web
 {
@@ -28,8 +29,6 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthorization();
-            
             services.AddDataProtection();
             services.AddAuthorization();
             services.AddWebEncoders();
@@ -37,12 +36,11 @@ namespace Web
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<IdentityDbContext>()
             .AddUserManager<UserManager<ApplicationUser>>()
-            .AddDefaultTokenProviders()
-            .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
+            .AddErrorDescriber<LocalizedIdentityErrorDescriber>()
+            .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.Cookie.Name = "YourAppCookieName";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
@@ -61,6 +59,9 @@ namespace Web
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
+
+                // SignIn settings.
+                options.SignIn.RequireConfirmedEmail = true;
 
                 // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -89,6 +90,7 @@ namespace Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, IdentityDbContext identityDbContext)
         {
             app.UseAuthentication();
+            app.UseStatusCodePagesWithReExecute($"/{Paths.NotFound}");
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);
             dotvvmConfiguration.AssertConfigurationIsValid();
             
@@ -96,6 +98,8 @@ namespace Web
             {
                 FileProvider = new PhysicalFileProvider(env.WebRootPath)
             });
+
+
 
             if (env.IsDevelopment())
             {

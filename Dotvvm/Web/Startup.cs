@@ -98,14 +98,6 @@ namespace Web
             {
                 FileProvider = new PhysicalFileProvider(env.WebRootPath)
             });
-
-
-
-            if (env.IsDevelopment())
-            {
-                dbContext.Database.EnsureCreated();
-                identityDbContext.Database.EnsureCreated();
-            }
         }
     }
 }

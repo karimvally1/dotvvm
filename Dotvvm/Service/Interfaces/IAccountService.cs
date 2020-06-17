@@ -1,4 +1,5 @@
-﻿using Service.Values;
+﻿using Service.Models;
+using Service.Values;
 using System.Threading.Tasks;
 
 namespace Service.Interfaces
@@ -7,6 +8,6 @@ namespace Service.Interfaces
     {
         Task<IdentityResult> Register(AccountRegister accountRegister);
         Task<IdentityResult> ConfirmEmail(string userId, string token);
-        void SendEmailConfirmation(string userName);
+        Task SendEmailConfirmation(string aspnetUserId);
     }
 }

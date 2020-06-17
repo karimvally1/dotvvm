@@ -1,6 +1,6 @@
 ﻿namespace Mailer.Models
 {
-    public class Email
+    public class EmailMessage
     {
         public string From { get; set; }
         public string[] To { get; set; }

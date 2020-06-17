@@ -28,6 +28,12 @@ namespace Identity
             await _signInManager.RefreshSignInAsync(applicationUser);
         }
 
+        public async Task SignIn(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            await _signInManager.SignInAsync(user, true);
+        }
+
         public async Task<Service.Values.SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure)
         {
             var result = await _signInManager.PasswordSignInAsync(userName, password, isPersistent, lockoutOnFailure);
@@ -87,25 +93,14 @@ namespace Identity
             };
 
             var result = await _userManager.CreateAsync(applicationUser, password);
-
-            if (!result.Succeeded)
-            {
-                return new Service.Values.IdentityResult
-                {
-                    Succeeded = result.Succeeded,
-                    Errors = result.Errors.Select(e => new Service.Values.IdentityError
-                    {
-                        Error = EnumHelper.FromString<IdentityErrorEnum>(e.Code),
-                        Description = e.Description
-                    }).ToArray()
-                };
-            }
-            
-            await _signInManager.SignInAsync(applicationUser, true);
-
             return new Service.Values.IdentityResult
             {
-                Succeeded = true
+                Succeeded = result.Succeeded,
+                Errors = result.Errors.Select(e => new Service.Values.IdentityError
+                {
+                    Error = EnumHelper.FromString<IdentityErrorEnum>(e.Code),
+                    Description = e.Description
+                }).ToArray()
             };
         }
 

@@ -7,7 +7,7 @@ namespace Mailer
 {
     public static class EmailSender
     {
-        public static async void SendEmail(Email email, string apiKey)
+        public static async void SendEmail(EmailMessage email, string apiKey)
         {
             var message = new SendGridMessage()
             {

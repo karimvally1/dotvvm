@@ -26,14 +26,16 @@ namespace Service
                 LastName = accountRegister.LastName,
                 Email = accountRegister.Email,
                 UserName = accountRegister.UserName
-            };
+            };  
 
             var result = await _identityManager.Create(user, accountRegister.Password);
 
             if (!result.Succeeded)
                 return result;
 
-            SendEmailConfirmation(user.UserName);
+            await _identityManager.SignIn(user.UserName);
+            user = await _identityProvider.GetByUserName(user.UserName);
+            await SendEmailConfirmation(user.AspNetUserId);
             return result;
         }
 
@@ -60,10 +62,20 @@ namespace Service
             return await _identityManager.ConfirmEmailToken(user.UserName, token);
         }
 
-        public async void SendEmailConfirmation(string userName)
+        public async Task SendEmailConfirmation(string aspnetUserId)
         {
-            var token = await _identityManager.CreateEmailConfirmationToken(userName);
-            _emailService.SendEmail("karimvally@hotmail.co.uk", new string[]{ "creamvally@gmail.com" }, "Confirm email", token);
+            var user = await _identityProvider.GetById(aspnetUserId);
+            var token = await _identityManager.CreateEmailConfirmationToken(user.UserName);
+            var email = new Email
+            {
+                From = "karimvally@hotmail.co.uk",
+                To = new string[] { user.Email },
+                Subject = "Confirm Email",
+                Body = token,
+                User = user
+            };
+
+            await _emailService.SendEmail(email);
         }
     }
 }

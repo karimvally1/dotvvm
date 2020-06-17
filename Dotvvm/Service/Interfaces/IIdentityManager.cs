@@ -8,6 +8,7 @@ namespace Service.Interfaces
     public interface IIdentityManager
     {
         Task AddClaims(string userName, IDictionary<string, string> claims);
+        Task SignIn(string userName);
         Task<SignInResult> PasswordSignIn(string userName, string password, bool isPersistent, bool lockoutOnFailure);
         Task SignOut();
         Task<string> CreateEmailConfirmationToken(string userName);

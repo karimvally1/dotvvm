@@ -1,17 +1,16 @@
-﻿using DotVVM.Framework.ViewModel;
+﻿using DotVVM.Framework.Runtime.Filters;
 using Service.Interfaces;
 using Service.Models;
 using System.Threading.Tasks;
 using Web.Constants;
+using Web.Extensions;
 
 namespace Web.ViewModels.Account
 {
+    [Authorize]
     public class ConfirmEmailViewModel : MasterPageViewModel
     {
         public override string Title => "Confirm Email";
-
-        [FromQuery("userId")]
-        public string UserId { get; set; }
 
         private readonly IIdentityProvider _identityProvier;
         private readonly IAccountService _accountService;
@@ -24,12 +23,7 @@ namespace Web.ViewModels.Account
 
         public async Task Resend()
         {
-            var user = await _identityProvier.GetById(UserId);
-            
-            if (user == default(User))
-                Context.RedirectToRoute(Routes.NotFound);
-
-            _accountService.SendEmailConfirmation(user.UserName);
+            await _accountService.SendEmailConfirmation(Context.HttpContext.User.GetUserId());
         }
     }
 }

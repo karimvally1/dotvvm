@@ -58,7 +58,7 @@ namespace Web.ViewModels
             }
 
             var user = await _identityProvider.GetByUserName(accountRegister.UserName);
-            Context.RedirectToRoute(Routes.ConfirmEmail, query: new { userId = user.AspNetUserId });
+            Context.RedirectToRoute(Routes.ConfirmEmail);
         }
 
         private void MapErrorsToViewModel(IdentityError[] errors)

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data
@@ -8,5 +8,7 @@ namespace Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
         { }
+
+        public DbSet<Email> Emails { get; set; }
     }
 }

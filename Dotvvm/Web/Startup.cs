@@ -98,6 +98,9 @@ namespace Web
             {
                 FileProvider = new PhysicalFileProvider(env.WebRootPath)
             });
+
+            identityDbContext.Database.Migrate();
+            dbContext.Database.Migrate();
         }
     }
 }

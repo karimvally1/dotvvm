@@ -2,6 +2,8 @@
 using Service;
 using Identity;
 using Service.Interfaces;
+using Service.Models;
+using Repository;
 
 namespace Web.Config
 {
@@ -14,6 +16,10 @@ namespace Web.Config
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IEmailService, EmailService>();
+
+            services.AddTransient<IReadWriteRepository<Email>, EmailRepository>();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }

@@ -1,19 +1,21 @@
-﻿using Mailer;
-using Mailer.Models;
+﻿using System;
+using System.Threading.Tasks;
 using Service.Interfaces;
 using Service.Models;
-using System;
-using System.Threading.Tasks;
+using Mailer.Models;
+using Mailer.Interfaces;
 
 namespace Service
 {
     public class EmailService : IEmailService
     {
         private readonly IUnitOfWork _uow;
+        private readonly IEmailSender _emailSender;
 
-        public EmailService(IUnitOfWork uow)
+        public EmailService(IUnitOfWork uow, IEmailSender emailSender)
         {
             _uow = uow;
+            _emailSender = emailSender;
         }
 
         public async Task SendEmail(Email email)
@@ -26,7 +28,7 @@ namespace Service
                 Body = email.Body
             };
 
-            EmailSender.SendEmail(message, "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");
+            _emailSender.SendEmail(message);
             email.Sent = DateTime.Now;
             await _uow.EmailRepository.Insert(email);
             await _uow.Commit();

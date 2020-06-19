@@ -30,12 +30,10 @@ namespace Web.ViewModels
         public string Password { get; set; }
 
         private readonly IAccountService _accountService;
-        private readonly IIdentityProvider _identityProvider;
 
-        public RegisterViewModel(IAccountService accountService, IIdentityProvider identityProvider)
+        public RegisterViewModel(IAccountService accountService)
         {
             _accountService = accountService;
-            _identityProvider = identityProvider;
         }
 
         public async Task Create()
@@ -57,7 +55,6 @@ namespace Web.ViewModels
                 Context.FailOnInvalidModelState();
             }
 
-            var user = await _identityProvider.GetByUserName(accountRegister.UserName);
             Context.RedirectToRoute(Routes.ConfirmEmail);
         }
 

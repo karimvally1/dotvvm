@@ -5,7 +5,6 @@ using Microsoft.Extensions.FileProviders;
 using DotVVM.Framework.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Data;
 using Web.Config;
@@ -84,6 +83,7 @@ namespace Web
                 options.UseSqlServer(Configuration.GetConnectionString("dotvvm")),
                 ServiceLifetime.Transient);
 
+            services.AddSettings(Configuration);
             services.AddServices();
         }
 
@@ -94,7 +94,7 @@ namespace Web
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);
             dotvvmConfiguration.AssertConfigurationIsValid();
             
-            app.UseStaticFiles(new StaticFileOptions
+            app.UseStaticFiles(new StaticFileOptions 
             {
                 FileProvider = new PhysicalFileProvider(env.WebRootPath)
             });

@@ -34,8 +34,11 @@ namespace Service
                 return result;
 
             await _identityManager.SignIn(user.UserName);
+
             user = await _identityProvider.GetByUserName(user.UserName);
+
             await SendEmailConfirmation(user.AspNetUserId);
+
             return result;
         }
 

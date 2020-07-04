@@ -10,12 +10,14 @@
     <nav class="header">
         <dot:AuthenticatedView>
             <AuthenticatedTemplate>
-                <div class="signout-box">
-                    <dot:LinkButton Text="Log Out" Click="{command: LogOut()}" Validation.Enabled="false" />
-                </div>
+                <dot:LinkButton Text="Log Out" Click="{command: LogOut()}" Validation.Enabled="false" />
             </AuthenticatedTemplate>
         </dot:AuthenticatedView>
-
+        <dot:RoleView Roles="Administrator">
+            <IsMemberTemplate>
+                <dot:LinkButton Text="Users" Click="{command: Users()}" Validation.Enabled="false" />
+            </IsMemberTemplate>
+        </dot:RoleView>
     </nav>
     <dot:ContentPlaceHolder ID="MainContent">
         Oops! No content can be found :(

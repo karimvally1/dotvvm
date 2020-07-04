@@ -2,6 +2,7 @@
 using Service.Interfaces;
 using System.Threading.Tasks;
 using Web.Attributes;
+using Web.Constants;
 
 namespace Web.ViewModels
 {
@@ -34,6 +35,8 @@ namespace Web.ViewModels
                 ErrorMessage = "Invalid login information, please try again.";
                 return;
             }
+
+            Context.RedirectToRoute(Routes.Home);
         }
     }
 }

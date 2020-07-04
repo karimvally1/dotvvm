@@ -21,10 +21,16 @@ namespace Identity
             _signInManager = signInManager;
         }
 
-        public async Task AddClaims(string userName, IDictionary<string, string> claims)
+        public async Task<IList<string>> GetUserRoles(string userName)
+        {
+            var applicationUser = await _userManager.FindByNameAsync(userName);
+            return await _userManager.GetRolesAsync(applicationUser);
+        }
+
+        public async Task AddClaims(string userName, IList<Claim> claims)
         {
             var applicationUser = await _userManager.FindByNameAsync(userName);   
-            await _userManager.AddClaimsAsync(applicationUser, MapDictionaryToClaims(claims));
+            await _userManager.AddClaimsAsync(applicationUser, claims);
             await _signInManager.RefreshSignInAsync(applicationUser);
         }
 
@@ -102,11 +108,6 @@ namespace Identity
                     Description = e.Description
                 }).ToArray()
             };
-        }
-
-        private IEnumerable<Claim> MapDictionaryToClaims(IDictionary<string, string> claims)
-        {
-            return claims.Select(c => new Claim(c.Key, c.Value));
         }
     }
 }

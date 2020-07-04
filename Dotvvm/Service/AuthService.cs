@@ -2,6 +2,8 @@
 using Service.Models;
 using Service.Values;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Service
@@ -32,15 +34,21 @@ namespace Service
             }
 
             var result = await _identityManager.PasswordSignIn(user.UserName, password, true, true);
-
             if (!result.Succeeded)
                 return result;
 
-            var claims = new Dictionary<string, string>
+            var claims = new List<Claim>
             {
-                { "FirstName", user.FirstName },
-                { "LastName", user.LastName }
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName)
             };
+
+            var roles = await _identityManager.GetUserRoles(user.UserName);
+
+            foreach(var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             await _identityManager.AddClaims(user.UserName, claims);
 

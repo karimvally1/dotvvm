@@ -43,6 +43,7 @@ namespace Web
                 options.Cookie.Name = "YourAppCookieName";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.AccessDeniedPath = $"/{Paths.NotAuthorised}";
                 options.LoginPath = "/login";
                 options.LogoutPath = "/logout";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
@@ -90,6 +91,7 @@ namespace Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, IdentityDbContext identityDbContext)
         {
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStatusCodePagesWithReExecute($"/{Paths.NotFound}");
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);
             dotvvmConfiguration.AssertConfigurationIsValid();

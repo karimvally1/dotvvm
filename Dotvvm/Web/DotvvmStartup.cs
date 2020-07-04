@@ -20,9 +20,11 @@ namespace Web
             config.RouteTable.Add(Routes.Login, Paths.Login, "Views/Login.dothtml");
             config.RouteTable.Add(Routes.Logout, Paths.Logout, "Views/Logout.dothtml");
             config.RouteTable.Add(Routes.Home, Paths.Home, "Views/Home.dothtml");
+            config.RouteTable.Add(Routes.Users, Paths.Users, "Views/Admin/Users.dothtml");
             config.RouteTable.Add(Routes.ConfirmEmail, Paths.ConfirmEmail, "Views/Account/ConfirmEmail.dothtml");
             config.RouteTable.Add(Routes.Activate, Paths.Activate, "Views/Account/Activate.dothtml");
             config.RouteTable.Add(Routes.ServerError, Paths.ServerError, "Views/ServerError.dothtml");
+            config.RouteTable.Add(Routes.NotAuthorised, Paths.NotAuthorised, "Views/NotAuthorisedError.dothtml");
             config.RouteTable.Add(Routes.NotFound, Paths.NotFound, "Views/NotFoundError.dothtml");
             config.RouteTable.AutoDiscoverRoutes(new DefaultRouteStrategy(config));    
         }  

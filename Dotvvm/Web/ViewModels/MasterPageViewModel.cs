@@ -12,5 +12,10 @@ namespace Web.ViewModels
         {
             Context.RedirectToRoute(Routes.Logout);
         }
+
+        public async Task Users()
+        {
+            Context.RedirectToRoute(Routes.Users);
+        }
     }
 }

@@ -14,6 +14,8 @@ using Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
 using Web.Constants;
+using Microsoft.AspNetCore.Hosting.Server;
+using Web.Middlewares;
 
 namespace Web
 {
@@ -40,13 +42,13 @@ namespace Web
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.Name = "YourAppCookieName";
+                options.Cookie.Name = "Dotvvm";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.AccessDeniedPath = $"/{Paths.NotAuthorised}";
-                options.LoginPath = "/login";
-                options.LogoutPath = "/logout";
-                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.LoginPath = $"/{Paths.Login}";
+                options.LogoutPath = $"/{Paths.Logout}";
+                options.ReturnUrlParameter = "redirect";
                 options.SlidingExpiration = true;
             });
 
@@ -92,6 +94,7 @@ namespace Web
         {
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<NotAuthenticatedMiddleware>();
             app.UseStatusCodePagesWithReExecute($"/{Paths.NotFound}");
             var dotvvmConfiguration = app.UseDotVVM<DotvvmStartup>(env.ContentRootPath);
             dotvvmConfiguration.AssertConfigurationIsValid();
@@ -100,6 +103,8 @@ namespace Web
             {
                 FileProvider = new PhysicalFileProvider(env.WebRootPath)
             });
+
+
 
             identityDbContext.Database.Migrate();
             dbContext.Database.Migrate();

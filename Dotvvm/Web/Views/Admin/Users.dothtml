@@ -1,6 +1,15 @@
 ﻿@viewModel Web.ViewModels.Admin.UsersViewModel, Web
 @masterPage Views/MasterPage.dotmaster
 
-<dot:Content ContentPlaceHolderID="MainContent">
-</dot:Content>
+    <dot:Content ContentPlaceHolderID="MainContent">
+        <h1>{{ value: Title }}</h1>
+        <dot:GridView DataSource="{value: Data}">
+            <Columns>
+                <dot:GridViewTextColumn ValueBinding="{value: UserName}" HeaderText="Username" />
+                <dot:GridViewTextColumn ValueBinding="{value: Email}" HeaderText="Email" />
+                <dot:GridViewTextColumn ValueBinding="{value: FirstName}" HeaderText="First name" />
+                <dot:GridViewTextColumn ValueBinding="{value: LastName}" HeaderText="Last name" />
+            </Columns>
+        </dot:GridView>
+    </dot:Content>
 

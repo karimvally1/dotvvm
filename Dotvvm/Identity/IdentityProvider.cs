@@ -3,6 +3,7 @@ using Identity.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Service.Interfaces;
+using System.Linq;
 
 namespace Identity
 {
@@ -15,54 +16,42 @@ namespace Identity
             _userManager = userManager;
         }
 
+        public IQueryable<Service.Models.User> GetAll()
+        {
+            return _userManager.Users
+                .Include(a => a.User)
+                .Select(a => new Service.Models.User
+                {
+                    AspNetUserId = a.Id,
+                    Id = a.User.Id,
+                    Email = a.Email,
+                    UserName = a.UserName,
+                    FirstName = a.User.FirstName,
+                    LastName = a.User.LastName
+                });
+        }
+
+        public IQueryable<Service.Models.User> GetAllNotInRole(string role)
+        {
+            return GetAll();
+        }
+
         public async Task<Service.Models.User> GetById(string userId)
         {
-            var applicationUser = await _userManager.Users
-                .Include(a => a.User)
-                .SingleOrDefaultAsync(a => a.Id == userId);
-
-            if (applicationUser == default(ApplicationUser))
-                return null;
-
-            return MapApplicationUserToUser(applicationUser);
+            return await GetAll()
+                .SingleOrDefaultAsync(u => u.AspNetUserId == userId);
         }
 
         public async Task<Service.Models.User> GetByUserName(string userName)
         {
-            var applicationUser = await _userManager.Users
-                .Include(a => a.User)
+            return await GetAll()
                 .SingleOrDefaultAsync(a => a.UserName == userName);
-
-            if (applicationUser == default(ApplicationUser))
-                return null;
-
-            return MapApplicationUserToUser(applicationUser);
         }
 
         public async Task<Service.Models.User> GetByEmail(string email)
         {
-            var applicationUser = await _userManager.Users
-                .Include(a => a.User)
+            return await GetAll()
                 .SingleOrDefaultAsync(a => a.Email == email);
-
-            if (applicationUser == default(ApplicationUser))
-                return null;
-
-            return MapApplicationUserToUser(applicationUser);
-        }
-
-
-        private Service.Models.User MapApplicationUserToUser(ApplicationUser applicationUser)
-        {
-            return new Service.Models.User
-            {
-                AspNetUserId = applicationUser.Id,
-                Id = applicationUser.User.Id,
-                Email = applicationUser.Email,
-                UserName = applicationUser.UserName,
-                FirstName = applicationUser.User.FirstName,
-                LastName = applicationUser.User.LastName
-            };
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Common.Resources;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Resources;
+using Identity.Resources;
 
-namespace Common
+namespace Identity
 {
     public class LocalizedIdentityErrorDescriber : IdentityErrorDescriber
     {
@@ -32,7 +32,7 @@ namespace Common
 
         #region Emails
         public override IdentityError InvalidEmail(string email) { return new IdentityError { Code = nameof(InvalidEmail), Description = string.Format(IdentityErrors.InvalidEmail, email) }; }
-        public override IdentityError DuplicateEmail(string email) { return new IdentityError { Code = nameof(DuplicateEmail), Description = string.Format(IdentityErrors.DuplicateEmail,email) }; }
+        public override IdentityError DuplicateEmail(string email) { return new IdentityError { Code = nameof(DuplicateEmail), Description = string.Format(IdentityErrors.DuplicateEmail, email) }; }
         #endregion
 
         #region Roles

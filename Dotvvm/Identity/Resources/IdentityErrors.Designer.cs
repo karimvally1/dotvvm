@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Common.Resources {
+namespace Identity.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Common.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Common.Resources.IdentityErrors", typeof(IdentityErrors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Identity.Resources.IdentityErrors", typeof(IdentityErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
